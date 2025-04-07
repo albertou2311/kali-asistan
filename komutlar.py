@@ -17,6 +17,15 @@ def komut_tanima(komut):
         return "mail_gonder"
     else:
         return "komut_anlasilmadi"
+def komut_tanima(komut):
+    if "zafiyet tara" in komut:
+        from exploit_taramasi import zafiyet_tara
+        ip = input("Zafiyet taraması için hedef IP girin: ")
+        zafiyet_tara(ip)
+
+    elif "exploit dene" in komut:
+        from exploit_taramasi import main
+        main()
 
 
 def rapor_yaz(komut, detay):
