@@ -6,6 +6,16 @@ import komutlar
 import zamanlayici
 import guvenlik
 
+from taramaci import hedef_tara
+
+def tarama_baslat():
+    ip = input("Lütfen taranacak IP adresini girin: ")
+    acik_portlar = hedef_tara(ip)
+    print(f"[!] {ip} adresindeki açık portlar: {acik_portlar}")
+
+# Denemek için yorumdan çıkar:
+# tarama_baslat()
+
 def sistem_baslangic_islemleri():
     print("[+] Başlangıç işlemleri çalıştırılıyor...")
     komutlar.komut_tanima("kali aç ve ip taraması yap")
