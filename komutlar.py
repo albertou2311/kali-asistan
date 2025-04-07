@@ -2,6 +2,10 @@ import paramiko
 import subprocess
 import os
 
+def komut_tanima(komut):
+    from islem_yoneticisi import komutu_isle
+    komutu_isle(komut)
+    
 # ✅ Rapor yazma
 def rapor_yaz(komut, detay):
     with open("rapor.txt", "a") as dosya:
