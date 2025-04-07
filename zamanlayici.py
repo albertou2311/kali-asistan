@@ -2,11 +2,12 @@ import schedule
 import time
 
 def rapor_olustur():
-    print("Port taraması raporu oluşturuluyor...")
+    print("[+] Rapor oluşturuluyor...")
+    time.sleep(2)
+    print("[+] Rapor başarıyla oluşturuldu.")
 
-# Her gün saat 10'da rapor oluştur
-schedule.every().day.at("10:00").do(rapor_olustur)
+def zamanla_gorev(func, delay):
+    print(f"[+] Görev {delay} saniye sonra çalışacak...")
+    time.sleep(delay)
+    func()
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
