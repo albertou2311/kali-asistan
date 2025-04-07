@@ -2,6 +2,35 @@ import pyttsx3
 import speech_recognition as sr
 import komutlar
 
+# komut_yoneticisi.py
+from loglayici import logla
+from komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
+from exploit_taramasi import exploit_ara
+
+komutlar = {
+    "apache_kapat": apache_kapat,
+    "sistem_temizle": sistem_temizligi,
+    "guncelle": sistemi_guncelle,
+    "exploit_ara": lambda: exploit_ara("192.168.1.1"),  # örnek kullanım
+}
+
+def komut_tanima(girdi):
+    if "komutlar" in girdi:
+        komutlari_listele()
+        return
+    
+    for komut, fonksiyon in komutlar.items():
+        if komut in girdi:
+            logla(f"{komut} komutu çalıştırılıyor...", "info")
+            fonksiyon()
+            return
+    logla("Komut tanınamadı.", "warning")
+
+def komutlari_listele():
+    print("\n📋 Kullanılabilir Komutlar:")
+    for komut in komutlar:
+        print(f"→ {komut}")
+
 
 def sesli_cevap(veri):
     engine = pyttsx3.init()
