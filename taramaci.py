@@ -1,6 +1,26 @@
 import nmap
 import datetime
 
+# taramaci.py içine ekle
+import subprocess
+
+def hedef_bilgi_topla(ip_adresi):
+    print(f"[+] {ip_adresi} hedefi hakkında bilgi toplanıyor...")
+    try:
+        # OS ve servis bilgisi toplama (Nmap servis taraması)
+        sonuc = subprocess.check_output(f"nmap -sS -sV -O {ip_adresi}", shell=True, text=True)
+        
+        with open("raporlar/bilgi_raporu.txt", "w") as f:
+            f.write(sonuc)
+        
+        print("[+] Bilgi raporu oluşturuldu: raporlar/bilgi_raporu.txt")
+        return sonuc
+    except subprocess.CalledProcessError as e:
+        print("[-] Bilgi toplama sırasında hata oluştu:", e)
+        return None
+
+
+
 def hedef_tara(ip_adresi):
     scanner = nmap.PortScanner()
     print(f"[+] {ip_adresi} IP adresi taranıyor...")
