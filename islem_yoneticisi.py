@@ -1,13 +1,14 @@
 import subprocess
 import os
-
-from click import clear
-from komut_yoneticisi import konus, sesli_komut_al
-from komut_yoneticisi import komut_tespit_et
+from komut_yoneticisi import konus, sesli_komut_al, komut_tespit_et
 from goruntu_yuztanima import yuz_tanima_baslat
 from rapor_olusturucu import rapor_olustur
 from osint_tool import osint_aramasi
 from email_gonderici import mail_gonder
+
+def ekran_temizle():
+    os.system('cls')  # Windows için
+    # os.system('clear')  # Linux/MacOS için
 
 def kali_linux_ac():
     konus("Kali Linux başlatılıyor.")
@@ -45,7 +46,7 @@ def komutu_isle(komut):
         ip = sesli_komut_al()
         if ip:
             nmap_taramasi(ip)
-            clear()
+            ekran_temizle()  # clear() yerine ekran_temizle() kullanılmalı
     elif "osint ara" in komut:
         konus("Lütfen aramak istediğiniz terimi söyleyin.")
         kelime = sesli_komut_al()
