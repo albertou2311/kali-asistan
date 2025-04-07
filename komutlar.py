@@ -1,7 +1,23 @@
 import paramiko
 import subprocess
-
 import subprocess
+
+# komutlar.py
+
+def apache_kapat():
+    print("[!] Apache servisleri kapatılıyor...")
+    os.system("sudo systemctl stop apache2")
+    print("[✓] Apache kapatıldı.")
+
+def sistem_temizligi():
+    print("[!] Sistem temizliği başlatılıyor...")
+    os.system("sudo apt-get clean")
+    print("[✓] Sistem temizliği tamamlandı.")
+
+def sistemi_guncelle():
+    print("[!] Sistem güncelleniyor...")
+    os.system("sudo apt update && sudo apt upgrade -y")
+    print("[✓] Sistem güncellemesi tamamlandı.")
 
 def guvenlik_taramasi():
     print("Sistem güvenlik taraması başlatılıyor...")
