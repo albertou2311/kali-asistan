@@ -6,6 +6,17 @@ import komutlar
 import zamanlayici
 import guvenlik
 
+from exploit_taramasi import zafiyet_tara
+
+def zafiyet_taramasi_baslat():
+    ip = input("Zafiyet taraması yapılacak IP adresini girin: ")
+    sonuc = zafiyet_tara(ip)
+    if sonuc:
+        print("[✓] Zafiyet taraması tamamlandı.")
+    else:
+        print("[-] Zafiyet taraması yapılamadı.")
+
+
 from taramaci import hedef_tara
 
 def tarama_baslat():
