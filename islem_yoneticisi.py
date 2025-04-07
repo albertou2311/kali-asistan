@@ -87,4 +87,3 @@ def komut_al():
     else:
         komut = input("✍️ Komut girin: ")
         return komut.lower()
-
