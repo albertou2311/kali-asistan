@@ -2,6 +2,31 @@ import pyttsx3
 import speech_recognition as sr
 import komutlar
 
+import speech_recognition as sr
+
+def komut_al():
+    try:
+        # Sesli komut algılamak için ses tanıma modülü kullanıyoruz
+        recognizer = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Sesli komut bekleniyor...")
+            recognizer.adjust_for_ambient_noise(source)
+            audio = recognizer.listen(source)
+
+        komut = recognizer.recognize_google(audio, language="tr-TR").lower()
+        print(f"Sesli Komut: {komut}")
+        return komut
+
+    except sr.UnknownValueError:
+        print("Ses tanınamadı.")
+        return None
+    except sr.RequestError as e:
+        print(f"Google API hatası: {e}")
+        return None
+    except Exception as e:
+        print(f"Bir hata oluştu: {e}")
+        return None
+
 # komut_yoneticisi.py
 from loglayici import logla
 from komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
