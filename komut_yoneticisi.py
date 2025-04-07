@@ -2,6 +2,7 @@ import pyttsx3
 import speech_recognition as sr
 import komutlar
 
+
 def sesli_cevap(veri):
     engine = pyttsx3.init()
     engine.say(veri)
