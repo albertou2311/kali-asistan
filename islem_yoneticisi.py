@@ -4,6 +4,8 @@ import komutlar
 from komutlar import *
 from taramaci import hedef_tara, hedef_bilgi_topla
 from exploit_taramasi import zafiyet_tara
+import zamanlayici
+import guvenlik
 import os
 
 def komutu_isle(komut):
@@ -49,7 +51,6 @@ def sistem_baslangic_islemleri():
     guvenlik.guvenlik_uyarisi()
     print("[+] Başlangıç işlemleri tamamlandı.")
 
-
 # Sesli yanıt verme fonksiyonu
 def sesli_cevap(veri):
     engine = pyttsx3.init()
@@ -68,7 +69,7 @@ def sesli_komut_tanima():
         komut = r.recognize_google(audio, language="tr-TR")
         print(f"📥 Alınan Komut: {komut}")
         sesli_cevap(f"Komut alındı: {komut}")
-        komutlar.komut_tanima(komut.lower())  # Küçük harfe çevir, daha iyi eşleşir
+        komutlar.komut_tanima(komut.lower())
 
     except sr.UnknownValueError:
         print("❌ Komut anlaşılamadı.")
@@ -77,7 +78,7 @@ def sesli_komut_tanima():
         print("❌ Google API servisine ulaşılamadı.")
         sesli_cevap("Servise bağlanılamadı, lütfen internet bağlantınızı kontrol edin.")
 
-# Yazılı komut alma fonksiyonu
+# Yazılı veya sesli komut alma fonksiyonu
 def komut_al():
     secim = input("🟢 Komut tipi [1: Sesli / 2: Yazılı] > ").strip()
     if secim == "1":
