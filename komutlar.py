@@ -1,4 +1,3 @@
-# komutlar.py
 import paramiko
 import subprocess
 
@@ -21,6 +20,23 @@ def ssh_baglantisi_ve_sniper_tarama(hedef_ip):
         sonuc = stdout.read().decode()
         print(sonuc)
         rapor_yaz("Sniper Taraması", sonuc)
+    except Exception as e:
+        print(f"Hata oluştu: {e}")
+    finally:
+        client.close()
+
+# ✅ Armtiage kullanma fonksiyonu
+def armitage_kullan(ip):
+    print(f"Armtiage ile {ip} IP'sine sızılıyor...")
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        client.connect("192.168.142.129", username="albertou", password="2311")
+        print("Armtiage başlatılıyor...")
+        stdin, stdout, stderr = client.exec_command(f"armitage -t {ip}")
+        sonuc = stdout.read().decode()  # Armtiage çıktısı
+        print(sonuc)
+        rapor_yaz("Armtiage Kullanma", sonuc)  # Rapor kaydediliyor
     except Exception as e:
         print(f"Hata oluştu: {e}")
     finally:
@@ -77,6 +93,11 @@ def komut_tanima(komut):
     elif "exploit dene" in komut:
         from exploit_taramasi import main
         main()
+
+    # Yeni komut: Armtiage kullanma
+    elif "armitage kullan" in komut:
+        ip = input("Armtiage ile sızmak için hedef IP girin: ")
+        armitage_kullan(ip)
 
     else:
         print("❌ Bu komut tanınmadı.")
