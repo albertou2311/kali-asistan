@@ -1,7 +1,13 @@
+
+# En üste:
+
 import os
-import subprocess
-import paramiko
 import logging
+import subprocess
+from loglayici import logla
+from zamanlayici import zamanla_gorev
+from exploit_taramasi import exploit_ara
+# Diğer modüller...
 
 logging.basicConfig(level=logging.DEBUG)
 
