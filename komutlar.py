@@ -2,7 +2,23 @@
 import paramiko
 import subprocess
 
-# Rapor yazma fonksiyonu
+#Rapor yazma fonksiyonu
+# komutlar.py içinde
+def komut_tanima(komut):
+    if "kali linux başlat" in komut:
+        return "kali_linux_baslat"
+    elif "yüz tanıma başlat" in komut:
+        return "yuz_tanima_baslat"
+    elif "rapor oluştur" in komut:
+        return "rapor_olustur"
+    elif "osint araması" in komut:
+        return "osint_aramasi"
+    elif "mail gönder" in komut:
+        return "mail_gonder"
+    else:
+        return "komut_anlasilmadi"
+
+
 def rapor_yaz(komut, detay):
     with open("rapor.txt", "a") as dosya:
         dosya.write(f"Komut: {komut}\n")
