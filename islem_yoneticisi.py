@@ -1,6 +1,7 @@
+
 import subprocess
 import os
-from komut_yoneticisi import konus, sesli_komut_al, komut_tespit_et
+from komut_yoneticisi import sesli_cevap, sesli_komut_tanima, komut_al
 from goruntu_yuztanima import yuz_tanima_baslat
 from rapor_olusturucu import rapor_olustur
 from osint_tool import osint_aramasi
