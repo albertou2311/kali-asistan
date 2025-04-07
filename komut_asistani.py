@@ -1,4 +1,3 @@
-
 import os
 import subprocess
 import paramiko
@@ -36,3 +35,6 @@ def ssh_baglantisi():
     finally:
         client.close()
         logging.info("🔒 Bağlantı kapatıldı.")
+
+if __name__ == "__main__":
+    ssh_baglantisi()
