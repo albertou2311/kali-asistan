@@ -5,6 +5,14 @@ from islem_yoneticisi import komutu_isle
 import komutlar
 import zamanlayici
 import guvenlik
+# En üste:
+import os
+import logging
+import subprocess
+from loglayici import logla
+from zamanlayici import zamanla_gorev
+from exploit_taramasi import exploit_ara
+# Diğer modüller...
 
 from exploit_taramasi import zafiyet_tara
 
