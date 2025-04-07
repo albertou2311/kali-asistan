@@ -13,6 +13,16 @@ def tarama_baslat():
     acik_portlar = hedef_tara(ip)
     print(f"[!] {ip} adresindeki açık portlar: {acik_portlar}")
 
+from taramaci import hedef_bilgi_topla  # En üste ekle
+
+def bilgi_toplama_baslat():
+    ip = input("Bilgi toplanacak IP adresini girin: ")
+    rapor = hedef_bilgi_topla(ip)
+    if rapor:
+        print("[+] Bilgi toplama tamamlandı. Rapor hazır.")
+    else:
+        print("[-] Bilgi toplanamadı.")
+        
 # Denemek için yorumdan çıkar:
 # tarama_baslat()
 
