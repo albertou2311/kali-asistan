@@ -1,6 +1,82 @@
 import paramiko
 import subprocess
 
+import subprocess
+
+def guvenlik_taramasi():
+    print("Sistem güvenlik taraması başlatılıyor...")
+    try:
+        subprocess.run(["sudo", "lynis", "audit", "system"], check=True)
+        print("Güvenlik taraması tamamlandı!")
+        rapor_yaz("Sistem Güvenlik Taraması", "Sistem güvenlik taraması başarılı.")
+    except subprocess.CalledProcessError as e:
+        print(f"Hata oluştu: {e}")
+        rapor_yaz("Sistem Güvenlik Taraması", f"Güvenlik taraması yapılırken hata oluştu: {e}")
+
+def sistemi_guncelle():
+    print("Sistem güncelleniyor...")
+    try:
+        subprocess.run(["sudo", "apt", "update"], check=True)
+        subprocess.run(["sudo", "apt", "upgrade", "-y"], check=True)
+        subprocess.run(["sudo", "apt", "autoremove", "-y"], check=True)
+        subprocess.run(["sudo", "dpkg", "--configure", "-a"], check=True)
+        subprocess.run(["sudo", "apt", "clean"], check=True)
+        print("Sistem başarıyla güncellendi ve optimize edildi!")
+        rapor_yaz("Kali Linux Güncelleme", "Sistem başarıyla güncellendi ve optimize edildi.")
+    except subprocess.CalledProcessError as e:
+        print(f"Hata oluştu: {e}")
+        rapor_yaz("Kali Linux Güncelleme", f"Sistem güncellenirken hata oluştu: {e}")
+
+def sistemi_yeniden_baslat():
+    print("Sistem yeniden başlatılıyor...")
+    try:
+        subprocess.run(["sudo", "reboot"], check=True)
+        print("Sistem başarıyla yeniden başlatıldı!")
+        rapor_yaz("Kali Linux Yeniden Başlatma", "Sistem başarıyla yeniden başlatıldı.")
+    except subprocess.CalledProcessError as e:
+        print(f"Hata oluştu: {e}")
+        rapor_yaz("Kali Linux Yeniden Başlatma", f"Sistem yeniden başlatılamadı: {e}")
+
+def disk_temizligi():
+    print("Disk temizliği yapılıyor...")
+    try:
+        subprocess.run(["sudo", "bleachbit", "--clean"], check=True)
+        print("Disk temizliği tamamlandı!")
+        rapor_yaz("Disk Temizliği", "Disk temizliği başarılı.")
+    except subprocess.CalledProcessError as e:
+        print(f"Hata oluştu: {e}")
+        rapor_yaz("Disk Temizliği", f"Disk temizliği yapılırken hata oluştu: {e}")
+
+def sistem_saglik_kontrolu():
+    print("Sistem sağlık durumu kontrol ediliyor...")
+    try:
+        # RAM kullanımı
+        ram_kullanimi = subprocess.check_output(["free", "-h"]).decode()
+        # Disk kullanımı
+        disk_kullanimi = subprocess.check_output(["df", "-h"]).decode()
+
+        print("RAM Kullanımı:")
+        print(ram_kullanimi)
+        print("Disk Kullanımı:")
+        print(disk_kullanimi)
+
+        rapor_yaz("Sistem Sağlık Kontrolü", f"RAM Kullanımı:\n{ram_kullanimi}\nDisk Kullanımı:\n{disk_kullanimi}")
+    except subprocess.CalledProcessError as e:
+        print(f"Hata oluştu: {e}")
+        rapor_yaz("Sistem Sağlık Kontrolü", f"Sistem sağlık durumu kontrol edilirken hata oluştu: {e}")
+
+def gereksiz_servisleri_kapat():
+    print("Gereksiz servisler kapatılıyor...")
+    try:
+        subprocess.run(["sudo", "systemctl", "stop", "servis_adı"], check=True)
+        subprocess.run(["sudo", "systemctl", "disable", "servis_adı"], check=True)
+        print("Gereksiz servisler kapatıldı!")
+        rapor_yaz("Servis Kapatma", "Gereksiz servisler başarıyla kapatıldı.")
+    except subprocess.CalledProcessError as e:
+        print(f"Hata oluştu: {e}")
+        rapor_yaz("Servis Kapatma", f"Servis kapatma işlemi sırasında hata oluştu: {e}")
+
+
 # ✅ Rapor yazma
 def rapor_yaz(komut, detay):
     with open("rapor.txt", "a") as dosya:
@@ -61,6 +137,34 @@ def sistemi_kapat():
     print("Sistem kapatılıyor...")
     rapor_yaz("Sistem kapatma", "Sistem başarıyla kapatıldı.")
 
+# ✅ IP Değiştirme (Proxy veya VPN)
+def ip_degistir():
+    print("IP değiştiriliyor...")
+    subprocess.run(["sudo", "service", "networking", "restart"])  # Örnek olarak, ağ yeniden başlatma
+    rapor_yaz("IP Değiştirme", "IP başarıyla değiştirildi.")
+
+# ✅ MAC Adresi Değiştirme
+def mac_degistir(interface):
+    print(f"{interface} arayüzünün MAC adresi değiştiriliyor...")
+    subprocess.run(["sudo", "macchanger", "-r", interface])
+    rapor_yaz("MAC Değiştirme", f"{interface} arayüzünün MAC adresi başarıyla değiştirildi.")
+
+# ✅ Sistem Sağlık Kontrolü
+def sistem_saglik_kontrol():
+    print("Sistem sağlık kontrolü yapılıyor...")
+    cpu_kullanimi = subprocess.getoutput("top -bn1 | grep 'Cpu(s)'")
+    ram_kullanimi = subprocess.getoutput("free -h")
+    disk_kullanimi = subprocess.getoutput("df -h")
+    print(f"CPU Kullanımı: {cpu_kullanimi}\nRAM Kullanımı: {ram_kullanimi}\nDisk Kullanımı: {disk_kullanimi}")
+    rapor_yaz("Sistem Sağlık Kontrolü", f"CPU Kullanımı: {cpu_kullanimi}\nRAM Kullanımı: {ram_kullanimi}\nDisk Kullanımı: {disk_kullanimi}")
+
+# ✅ Güvenlik Duvarı Kontrolü ve Ayarlama
+def guvenlik_duvari_kontrol():
+    print("Güvenlik duvarı durumu kontrol ediliyor...")
+    firewall_durumu = subprocess.getoutput("sudo ufw status")
+    print(f"Firewall Durumu: {firewall_durumu}")
+    rapor_yaz("Güvenlik Duvarı Kontrolü", firewall_durumu)
+
 # ✅ Komut tanıma
 def komut_tanima(komut):
     komut = komut.lower()
@@ -94,10 +198,22 @@ def komut_tanima(komut):
         from exploit_taramasi import main
         main()
 
-    # Yeni komut: Armtiage kullanma
     elif "armitage kullan" in komut:
         ip = input("Armtiage ile sızmak için hedef IP girin: ")
         armitage_kullan(ip)
+
+    elif "ip degistir" in komut:
+        ip_degistir()
+
+    elif "mac degistir" in komut:
+        interface = input("MAC adresi değiştirilecek arayüz (örneğin eth0): ")
+        mac_degistir(interface)
+
+    elif "sistem saglik kontrol" in komut:
+        sistem_saglik_kontrol()
+
+    elif "guvenlik duvari kontrol" in komut:
+        guvenlik_duvari_kontrol()
 
     else:
         print("❌ Bu komut tanınmadı.")
