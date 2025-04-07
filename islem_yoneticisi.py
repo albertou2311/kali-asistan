@@ -1,60 +1,40 @@
+import pyttsx3
+import speech_recognition as sr
+import komutlar
 
-import subprocess
-import os
-from komut_yoneticisi import sesli_cevap, sesli_komut_tanima, komut_al
-from goruntu_yuztanima import yuz_tanima_baslat
-from rapor_olusturucu import rapor_olustur
-from osint_tool import osint_aramasi
-from email_gonderici import mail_gonder
+# Sesli yanıt verme fonksiyonu
+def sesli_cevap(veri):
+    engine = pyttsx3.init()
+    engine.say(veri)
+    engine.runAndWait()
 
-def ekran_temizle():
-    os.system('cls')  # Windows için
-    # os.system('clear')  # Linux/MacOS için
+# Sesli komut tanıma fonksiyonu
+def sesli_komut_tanima():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("🎙 Komutunuzu bekliyorum...")
+        sesli_cevap("Komutunuzu bekliyorum")
+        audio = r.listen(source)
 
-def kali_linux_ac():
-    konus("Kali Linux başlatılıyor.")
-    subprocess.Popen(["vmrun", "-T", "ws", "start", "C:\\Kali\\Kali.vmx"])
+    try:
+        komut = r.recognize_google(audio, language="tr-TR")
+        print(f"📥 Alınan Komut: {komut}")
+        sesli_cevap(f"Komut alındı: {komut}")
+        komutlar.komut_tanima(komut.lower())  # Küçük harfe çevir, daha iyi eşleşir
 
-def nmap_taramasi(ip_adresi):
-    konus(f"{ip_adresi} adresine nmap taraması başlatılıyor.")
-    os.system(f"gnome-terminal -- nmap -sV {ip_adresi}")
+    except sr.UnknownValueError:
+        print("❌ Komut anlaşılamadı.")
+        sesli_cevap("Komutunuzu anlayamadım.")
+    except sr.RequestError:
+        print("❌ Google API servisine ulaşılamadı.")
+        sesli_cevap("Servise bağlanılamadı, lütfen internet bağlantınızı kontrol edin.")
 
-def osint_arama(kelime):
-    konus(f"{kelime} için açık kaynak araması başlatılıyor.")
-    os.system(f"gnome-terminal -- python3 osint_tool.py {kelime}")
-
-def komutu_isle(komut):
-    komut_islem = komut_tespit_et(komut)  # Komutu analiz et
-
-    if "vmware" in komut:
-        konus("VMware açılıyor.")
-        subprocess.Popen(["C:\\Program Files (x86)\\VMware\\VMware Workstation\\vmware.exe"])
-
-    if komut_islem == "kali_linux_baslat":
-        kali_linux_ac()
-    elif komut_islem == "yuz_tanima_baslat":
-        yuz_tanima_baslat()
-    elif komut_islem == "rapor_olustur":
-        rapor_olustur()
-    elif komut_islem == "osint_aramasi":
-        osint_aramasi()
-    elif komut_islem == "mail_gonder":
-        mail_gonder()
-    elif komut_islem == "komut_anlasilmadi":
-        konus("Komut anlaşılamadı. Lütfen tekrar deneyin.")
-    elif "nmap tara" in komut:
-        konus("Lütfen IP adresini söyleyin.")
-        ip = sesli_komut_al()
-        if ip:
-            nmap_taramasi(ip)
-            ekran_temizle()  # clear() yerine ekran_temizle() kullanılmalı
-    elif "osint ara" in komut:
-        konus("Lütfen aramak istediğiniz terimi söyleyin.")
-        kelime = sesli_komut_al()
-        if kelime:
-            osint_arama(kelime)
-    elif "çıkış yap" in komut:
-        konus("Asistan kapatılıyor. Görüşmek üzere.")
-        exit()
+# Yazılı komut alma fonksiyonu
+def komut_al():
+    secim = input("🟢 Komut tipi [1: Sesli / 2: Yazılı] > ").strip()
+    if secim == "1":
+        sesli_komut_tanima()
+        return None
     else:
-        konus("Bu komutu anlayamadım.")
+        komut = input("✍️ Komut girin: ")
+        return komut.lower()
