@@ -14,10 +14,6 @@ def sistem_temizligi():
     os.system("sudo apt-get clean")
     print("[✓] Sistem temizliği tamamlandı.")
 
-def sistemi_guncelle():
-    print("[!] Sistem güncelleniyor...")
-    os.system("sudo apt update && sudo apt upgrade -y")
-    print("[✓] Sistem güncellemesi tamamlandı.")
 
 def guvenlik_taramasi():
     print("Sistem güvenlik taraması başlatılıyor...")
