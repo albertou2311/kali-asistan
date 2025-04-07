@@ -7,6 +7,12 @@ from loglayici import logla
 from komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
 from exploit_taramasi import exploit_ara
 
+import importlib
+komut_modulleri = ["komutlar.sistem", "komutlar.ag", "komutlar.tarama"]
+for mod in komut_modulleri:
+    importlib.import_module(mod)
+
+
 komutlar = {
     "apache_kapat": apache_kapat,
     "sistem_temizle": sistem_temizligi,
