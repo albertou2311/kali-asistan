@@ -44,7 +44,8 @@ def komutu_isle(komut):
         konus("Lütfen IP adresini söyleyin.")
         ip = sesli_komut_al()
         if ip:
-            nmap_taramasi(ip)clear
+            nmap_taramasi(ip)
+            clear()
     elif "osint ara" in komut:
         konus("Lütfen aramak istediğiniz terimi söyleyin.")
         kelime = sesli_komut_al()
