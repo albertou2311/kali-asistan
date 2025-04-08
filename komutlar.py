@@ -1,6 +1,7 @@
 import paramiko
 import subprocess
 import os
+import komutlar.komut_tanima
 
 def komut_tanima(komut):
     from islem_yoneticisi import komutu_isle
@@ -213,6 +214,10 @@ def komut_tanima(komut):
 
     elif "vmware" in komut:
         vmware_baslat()
-
+    
     else:
         print("❌ Komut tanınmadı.")
+
+
+touch komutlar/__init__.py
+
