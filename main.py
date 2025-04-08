@@ -12,7 +12,11 @@ from komutlar import komut_tanima, sistem_temizligi
 
 def sistem_baslangic_islemleri():
     print("[+] Başlangıç işlemleri çalıştırılıyor...")
-    komutlar.komut_tanima("kali aç ve ip taraması yap")
+    komut = komutlar.komut_tanima("kali aç ve ip taraması yap")
+    if komut:
+        print("[✓] Komut doğru şekilde alındı.")
+    else:
+        print("[!] Komut alınamadı.")
     zamanlayici.rapor_olustur()
     guvenlik.guvenlik_uyarisi()
     print("[+] Başlangıç işlemleri tamamlandı.")
@@ -39,15 +43,15 @@ def bilgi_toplama_baslat():
         print("[-] Bilgi toplanamadı.")
 
 def main():
-    sistem_baslangic_islemleri()
+    sistem_baslangic_islemleri()  # Başlangıç işlemlerini çalıştır.
     try:
         while True:
-            komut = komut_al()
+            komut = komut_al()  # Kullanıcıdan komut al.
             if komut:
-                komutu_isle(komut)
+                komutu_isle(komut)  # Komutu çalıştır.
             time.sleep(1)  # Sistemi çok yormamak için bekleme
     except KeyboardInterrupt:
         print("\n[-] Asistan manuel olarak durduruldu.")
 
 if __name__ == "__main__":
-    main()
+    main()  # Programı başlat
