@@ -1,42 +1,14 @@
+# komut_yoneticisi.py
 import pyttsx3
 import speech_recognition as sr
-import komutlar
-
-import speech_recognition as sr
-
-def komut_al():
-    try:
-        # Sesli komut algılamak için ses tanıma modülü kullanıyoruz
-        recognizer = sr.Recognizer()
-        with sr.Microphone() as source:
-            print("Sesli komut bekleniyor...")
-            recognizer.adjust_for_ambient_noise(source)
-            audio = recognizer.listen(source)
-
-        komut = recognizer.recognize_google(audio, language="tr-TR").lower()
-        print(f"Sesli Komut: {komut}")
-        return komut
-
-    except sr.UnknownValueError:
-        print("Ses tanınamadı.")
-        return None
-    except sr.RequestError as e:
-        print(f"Google API hatası: {e}")
-        return None
-    except Exception as e:
-        print(f"Bir hata oluştu: {e}")
-        return None
-
-# komut_yoneticisi.py
 from loglayici import logla
-from komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
+from komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi, fonksiyon
 from exploit_taramasi import exploit_ara
 
 import importlib
 komut_modulleri = ["komutlar.sistem", "komutlar.ag", "komutlar.tarama"]
 for mod in komut_modulleri:
     importlib.import_module(mod)
-
 
 komutlar = {
     "apache_kapat": apache_kapat,
@@ -62,7 +34,6 @@ def komutlari_listele():
     for komut in komutlar:
         print(f"→ {komut}")
 
-
 def sesli_cevap(veri):
     engine = pyttsx3.init()
     engine.say(veri)
@@ -81,7 +52,7 @@ def sesli_komut_tanima():
         print(f"📥 Alınan Komut: {komut}")
         sesli_cevap(f"Komut alındı: {komut}")
 
-        komutlar.komut_tanima(komut.lower())  # Küçük harfe çevir, daha iyi eşleşir
+        komut_tanima(komut.lower())  # Küçük harfe çevir, daha iyi eşleşir
 
     except sr.UnknownValueError:
         print("❌ Komut anlaşılamadı.")
