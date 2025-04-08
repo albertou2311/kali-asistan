@@ -2,6 +2,11 @@ import paramiko
 import subprocess
 import os
 import komutlar.komut_tanima
+from komutlar import komut_tanima
+from .komut_tanima import *
+
+touch komutlar/__init__.py
+
 
 def komut_tanima(komut):
     from islem_yoneticisi import komutu_isle
