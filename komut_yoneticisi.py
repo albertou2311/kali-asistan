@@ -1,7 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
 from loglayici import logla
-from komutlar.komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
+from komutlar.komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi, komut_tanima
 from exploit_taramasi import exploit_ara
 
 import importlib
