@@ -86,4 +86,5 @@ def komut_al():
         return None
     else:
         komut = input("✍️ Komut girin: ")
-        #return komut.lower()
+        return komut.lower()  # Bu satırı aktif etmen çalışmasını sağlar
+
