@@ -1,11 +1,15 @@
 import paramiko
 import subprocess
-import os
 import komutlar.komut_tanima
 from komutlar import komut_tanima
-from .komut_tanima import *
+from .komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
+import os
 
-open('komutlar/__init__.py', 'w').close()
+# komutlar/__init__.py dosyasını Python ile oluşturma
+os.makedirs('komutlar', exist_ok=True)
+with open('komutlar/__init__.py', 'w') as f:
+    pass
+
 
 def komut_tanima(komut):
     from islem_yoneticisi import komutu_isle
