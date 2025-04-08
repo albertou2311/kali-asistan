@@ -1,6 +1,7 @@
 import paramiko
 import subprocess
 import komutlar.komut_tanima
+# import komutlar.komut_tanima  # Bu satırı kaldırabiliriz
 from komutlar import komut_tanima
 from .komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
 import os
