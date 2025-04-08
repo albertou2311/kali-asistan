@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Mon Apr  7 18:10:28 2025 as: /usr/lib/nmap/nmap --privileged -p- -oN portlar.txt 192.168.1.x
+Failed to resolve "192.168.1.x".
+WARNING: No targets were specified, so 0 hosts scanned.
+# Nmap done at Mon Apr  7 18:10:28 2025 -- 0 IP addresses (0 hosts up) scanned in 0.12 seconds
