@@ -1,12 +1,5 @@
-from komutlar.komut_tanima import fonksiyon_adı
-
-
-# komutlar/komut_tanima.py
-
-def komut_tanima(komut):
-    # Komut tanıma işlemi burada yapılacak
-    print(f"Komut alındı: {komut}")
-    return komut
-
-
+# komut_tanima.py dosyasında
+def fonksiyon():
+    from komutlar.komut_tanima import fonksiyon_adı
+    # Fonksiyonun geri kalan kısmı burada
 
