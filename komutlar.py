@@ -5,8 +5,7 @@ import komutlar.komut_tanima
 from komutlar import komut_tanima
 from .komut_tanima import *
 
-touch komutlar/__init__.py
-
+open('komutlar/__init__.py', 'w').close()
 
 def komut_tanima(komut):
     from islem_yoneticisi import komutu_isle
