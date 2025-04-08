@@ -1,43 +1,29 @@
 import subprocess
 import os
 from komut_yoneticisi import sesli_cevap, sesli_komut_tanima, komut_al
+from komutlar import komut_tanima
 from komutlar import komut_tanima, rapor_yaz, ssh_baglantisi_ve_sniper_tarama
 from goruntu_yuztanima import yuz_tanima_baslat
 from rapor_olusturucu import rapor_olustur
 from osint_tool import osint_aramasi
 from email_gonderici import mail_gonder
-# komutlar.py içinde
-# asistan.py içinde
-from komutlar import apache_kapat, sistemi_guncelle, disk_temizligi, guvenlik_taramasi
-
-def komut_calistir():
-    # Apache'yi kapat
-    apache_kapat()
-
-    # Sistemi güncelle
-    sistemi_guncelle()
-
-    # Disk temizliği yap
-    disk_temizligi()
-
-    # Güvenlik taraması başlat
-    guvenlik_taramasi()
 
 def ekran_temizle():
-    os.system('cls')  # Windows için
-    # os.system('clear')  # Linux/MacOS için
+    if os.name == 'nt':  # Windows
+        os.system('cls')
+    else:  # Linux/MacOS
+        os.system('clear')
 
-def kali_linux_ac():
-    sesli_cevap("Kali Linux başlatılıyor.")
-    subprocess.Popen(["vmrun", "-T", "ws", "start", "C:\\Kali\\Kali.vmx"])
+def komut_sec():
+    komut = komut_al()  # Sesli veya yazılı komut seçimi
+    if komut:
+        komutu_isle(komut)
+    else:
+        sesli_cevap("Komut alınamadı. Lütfen tekrar deneyin.")
 
-def nmap_taramasi(ip_adresi):
-    sesli_cevap(f"{ip_adresi} adresine nmap taraması başlatılıyor.")
-    os.system(f"gnome-terminal -- nmap -sV {ip_adresi}")
-
-def osint_arama(kelime):
-    sesli_cevap(f"{kelime} için açık kaynak araması başlatılıyor.")
-    os.system(f"gnome-terminal -- python3 osint_tool.py {kelime}")
+def asistan_calistir():
+    while True:
+        komut_sec()
 
 def komutu_isle(komut):
     komut_islem = komut_tanima(komut)  # Komutu analiz et
@@ -75,4 +61,5 @@ def komutu_isle(komut):
     else:
         sesli_cevap("Bu komutu anlayamadım.")
 
-def komut_sec():
+# Başlatma fonksiyonunu çalıştır
+asistan_calistir()
