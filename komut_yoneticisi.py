@@ -1,8 +1,8 @@
 import pyttsx3
 import speech_recognition as sr
 import komutlar
-
 import speech_recognition as sr
+from komutlar.komutlar import apache_kapat, sistemi_guncelle, sistem_temizligi
 
 def komut_al():
     try:
