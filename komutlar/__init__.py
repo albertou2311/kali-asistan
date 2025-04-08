@@ -1,5 +1,7 @@
 # komutlar/__init__.py
 
+# komutlar/__init__.py
+
 from .komutlar import (
     apache_kapat,
     sistemi_guncelle,
@@ -19,3 +21,5 @@ from .komutlar import (
     kali_linux_baslat,
     sistemi_kapat
 )
+
+from .komut_tanima import komut_tanima  # komut_tanima'yı içe aktarın
