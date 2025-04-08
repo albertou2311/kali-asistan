@@ -8,6 +8,7 @@ from loglayici import logla
 from zamanlayici import zamanla_gorev
 from exploit_taramasi import exploit_ara
 from taramaci import hedef_tara, hedef_bilgi_topla
+from komutlar import komut_tanima, sistem_temizligi
 
 def sistem_baslangic_islemleri():
     print("[+] Başlangıç işlemleri çalıştırılıyor...")
